@@ -1,0 +1,156 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+    <!-- Start Slider -->
+    <div id="slides-shop" class="cover-slides">
+        <ul class="slides-container">
+            <li class="text-center">
+                <img src="{% static 'images/pic2.png' %}" alt="">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="m-b-20"><strong>Welcome To GOUNI Football<br> Team's Website</strong></h1>
+                            <p class="m-b-40">This is the official website of the GOUNI football team, all information concerning the team is right here.</p>
+                            <p><a class="btn hvr-hover" href="#message">Drop a Message</a></p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="text-center">
+                <img src="{% static 'images/pic1.png' %}" alt="">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="m-b-20"><strong>Welcome To GOUNI Football<br> Team's Website</strong></h1>
+                            <p class="m-b-40">See our skilled players and their details as well as their ratings</p>
+                            <p><a class="btn hvr-hover" href="#message">Drop a Message</a></p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="text-center">
+                <img src="{% static 'images/pic3.png' %}" alt="">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="m-b-20"><strong>Welcome To GOUNI Football<br> Team's Website</strong></h1>
+                            <p class="m-b-40">Would you love to be our sponsor? kindly get in touch with us</p>
+                            <p><a class="btn hvr-hover" href="#message">Drop a Message</a></p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="slides-navigation">
+            <a href="{% static '#' %}" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            <a href="{% static '#' %}" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <!-- End Slider -->
+
+    <!-- Start Blog  -->
+    <div class="latest-blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="title-all text-center">
+                        <h1>Our Team</h1>
+                        <p>Here are our wonderful players and their details, you can also rate them!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- {% for player in players %}
+                <div class="col-md-6 col-lg-4 col-xl-4">
+                    <div class="blog-box">
+                        <div class="blog-img">
+                            <img class="img-fluid" src="{{ player.pic.url }}" alt="" style="width: 345px; height: 200px;" />
+                        </div>                                                
+                        <div class="blog-content">
+                            <div class="title-blog">
+                                <h3>{{player.user_profile.user.first_name}} {{player.user_profile.user.last_name}}</h3>
+                                <ul>
+                                    <li><b>Age: {{player.age}}</b></li>
+                                    <li><b>Speed: {{player.speed}}</b></li>
+                                    <li><b>Height: {{player.height}}</b></li>
+                                    <li><b>Wing: {{player.wing}}</b></li><hr>
+                                    <li><b>Bio:</b></li>
+                                </ul>
+                                <p>{{player.bio}}</p>
+                            </div>
+                            <ul class="option-blog">
+                                <li><a href="{% static '#' %}"><i class="far fa-heart"></i></a></li>
+                                <li><a href="{% static '#' %}"><i class="fas fa-eye"></i></a></li>
+                                <li><a href="{% static '#' %}"><i class="far fa-comments"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %} -->
+
+                {% for player in players %}
+                <div class="col-md-6 col-lg-4 col-xl-4">
+                    <div class="blog-box">
+                        <div class="blog-img">
+                            <img class="img-fluid" src="{{ player.pic.url }}" alt="" style="width: 345px; height: 200px;" />
+                        </div>                                                
+                        <div class="blog-content">
+                            <div class="title-blog">
+                                <h3>{{player.user_profile.user.first_name}} {{player.user_profile.user.last_name}}</h3>
+                                <ul>
+                                    <li><b>Age: {{player.age}}</b></li>
+                                    <li><b>Speed: {{player.speed}}</b></li>
+                                    <li><b>Height: {{player.height}}</b></li>
+                                    <li><b>Wing: {{player.wing}}</b></li><hr>
+                                    <li><b>Bio:</b></li>
+                                </ul>
+                                <p>{{player.bio|truncatechars:40}}</p>
+                            </div>
+                            <div class="star-rating">
+                                <span class="fa fa-star" data-rating="1"></span>
+                                <span class="fa fa-star" data-rating="2"></span>
+                                <span class="fa fa-star" data-rating="3"></span>
+                                <span class="fa fa-star" data-rating="4"></span>
+                                <span class="fa fa-star" data-rating="5"></span>
+                                <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    <!-- End Blog  -->
+
+
+    <!-- Start Contact Form -->
+    <br><br>
+    <div class="contact-form">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Your contact form HTML code goes here -->
+                    <h1 id="message">Drop a Message</h1>
+                    <form action="{% url 'index' %}" method="POST">
+                        {% csrf_token %}
+                        <!--This first field is here to serve as an identifier for this form incase if there are multiple forms in this page-->
+                        <input type="hidden" name="form_id" value="message-form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="message_name" placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="message_email" placeholder="Your Email">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="message_text" rows="5" placeholder="Message"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><br><br>
+    
+    {% endblock content %}

@@ -1,0 +1,431 @@
+{% extends 'main.html' %}
+{% block content %}
+
+{% if request.user.userprofile.is_coach == False %}
+<div class="container">
+    <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="account-settings">
+                        <div class="user-profile">
+                            <div class="user-avatar">
+                                <!-- <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin"> -->
+                                <img src="{{ request.user.userprofile.player.pic.url }}" alt="{{ request.user.first_name }}">
+                                <!-- <h1>PIC URL: {{ request.user.username }}</h1> -->
+                            </div>
+                            <!-- <h5 class="user-name">Yuki Hayashi</h5> -->
+                            <!-- <h6 class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c9b0bca2a08984a8b1beaca5a5e7aaa6a4">[email&#160;protected]</a></h6> -->
+                        </div>
+                        <!-- <div class="about">
+                            <h5>About</h5>
+                            <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <form action="{% url 'account' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary">Personal Details</h6>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <!-- <label for="fullName">User</label> -->
+                                    <input type="hidden" name="user_profile" value="{{ form.instance.user_profile.id }}">
+                                </div>                                
+                                <div class="form-group">
+                                    <label for="fullName">Full Name</label>
+                                    <input type="text" class="form-control" id="fullName" name="full_name" value="{{ form.instance.user_profile.user.get_full_name }}" placeholder="Enter full name">
+                                    <!-- {{ form.user_profile.label_tag }}
+                                    {{ form.instance.user_profile }} -->
+                                    <!-- {{ form.user_profile.errors }} -->
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="eMail">Email</label>
+                                    <input type="email" class="form-control" id="eMail" name="email" value="{{ form.instance.user_profile.user.email }}" placeholder="Enter email ID">
+                                    <!-- {{ form.email.label_tag }}
+                                    {{ form.email }}
+                                    {{ form.email.errors }} -->
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Age">Age</label>
+                                    <input type="number" class="form-control" id="Age" name="age" value="{{ form.instance.age }}" placeholder="Enter Age">
+                                    <!-- {{ form.age.label_tag }}
+                                    {{ form.age }}
+                                    {{ form.age.errors }}  -->
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Bio">Bio</label>
+                                    <input type="text" class="form-control" name="bio" id="Bio" value="{{ form.instance.bio }}" placeholder="Enter Bio">
+                                    <!-- {{ form.bio.label_tag }}
+                                    {{ form.bio }}
+                                    {{ form.bio.errors }}      -->
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Wing">Wing</label>
+                                    <input type="number" class="form-control" name="wing" id="Wing" value="{{ form.instance.wing }}" placeholder="Enter Wing">
+                                    <!-- {{ form.wing.label_tag }}
+                                    {{ form.wing }}
+                                    {{ form.wing.errors }}  -->
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Height">Height</label>
+                                    <input type="number" class="form-control" name="height" id="Height" value="{{ form.instance.height }}" placeholder="Enter Height" step="any">
+                                    <!-- {{ form.height.label_tag }}
+                                    {{ form.height }}
+                                    {{ form.height.errors }}  -->
+                                </div>
+                            </div>                            
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Speed">Speed</label>
+                                    <input type="number" class="form-control" name="speed" id="Speed" value="{{ form.instance.speed }}" placeholder="Enter Speed">
+                                    <!-- {{ form.speed.label_tag }}
+                                    {{ form.speed }}
+                                    {{ form.speed.errors }}  -->
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    {{ form.pic.label_tag }}
+                                    {{ form.pic }}
+                                    {{ form.pic.errors }} 
+                                </div>
+                            </div>
+                            <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary">Change of Password</h6>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Password1">Old Password</label>
+                                    <input type="password" class="form-control" id="Password1" placeholder="Enter Password">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Password2">New Password</label>
+                                    <input type="password" class="form-control" id="Password2" placeholder="Enter Password">
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="text-right">
+                                    <!-- <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button> -->
+                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- {{form.as_p}}
+                        <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h1>Upcoming Matches</h1><hr>
+        {% for match in upcoming_matches %}
+            <p><b>MATCH:</b> {{match.name}}</p>
+            <b class="match-date">DATE: {{match.date}}</b>
+            <b class="match-deadline">{{ match.days_until_match }} DAYS UNTIL MATCH</b> <hr>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="container">
+    <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="account-settings">
+                        <div class="user-profile">
+                            <div class="user-avatar">
+                                <!-- <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin"> -->
+                                <img src="{{ request.user.userprofile.coach.pic.url }}" alt="{{ request.user.first_name }}">
+                                <!-- <h1>PIC URL: {{ request.user.username }}</h1> -->
+                            </div>
+                            <!-- <h5 class="user-name">Yuki Hayashi</h5> -->
+                            <!-- <h6 class="user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c9b0bca2a08984a8b1beaca5a5e7aaa6a4">[email&#160;protected]</a></h6> -->
+                        </div>
+                        <!-- <div class="about">
+                            <h5>About</h5>
+                            <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <form action="{% url 'account' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary">Personal Details</h6>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <!-- <label for="fullName">User</label> -->
+                                    <input type="hidden" name="user_profile" value="{{ form.instance.user_profile.id }}">
+                                </div>                                
+                                <div class="form-group">
+                                    <label for="fullName">Full Name</label>
+                                    <input type="text" class="form-control" id="fullName" name="full_name" value="{{ form.instance.user_profile.user.get_full_name }}" placeholder="Enter full name">
+                                    <!-- {{ form.user_profile.label_tag }}
+                                    {{ form.instance.user_profile }} -->
+                                    <!-- {{ form.user_profile.errors }} -->
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="eMail">Email</label>
+                                    <input type="email" class="form-control" id="eMail" name="email" value="{{ form.instance.user_profile.user.email }}" placeholder="Enter email ID">
+                                    <!-- {{ form.email.label_tag }}
+                                    {{ form.email }}
+                                    {{ form.email.errors }} -->
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Age">Age</label>
+                                    <input type="number" class="form-control" id="Age" name="age" value="{{ form.instance.age }}" placeholder="Enter Age">
+                                    <!-- {{ form.age.label_tag }}
+                                    {{ form.age }}
+                                    {{ form.age.errors }}  -->
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Experience">Experience in years</label>
+                                    <input type="number" class="form-control" name="experience_years" id="Experience" value="{{ form.instance.experience_years }}" placeholder="Enter experience">
+                                    <!-- {{ form.experience.label_tag }}
+                                    {{ form.experience_years }}
+                                    {{ form.experience_years.errors }}      -->
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Certification">Certification</label>
+                                    <input type="certification" class="form-control" name="certification" id="certification" value="{{ form.instance.certification }}" placeholder="Enter Certification">
+                                    <!-- {{ form.certification.label_tag }}
+                                    {{ form.certification }}
+                                    {{ form.certification.errors }}  -->
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Coaching_style">Coaching Style</label>
+                                    <input type="text" class="form-control" name="coaching_style" id="Coaching_style" value="{{ form.instance.coaching_style }}" placeholder="Enter Coaching_style" step="any">
+                                    <!-- {{ form.coaching_style.label_tag }}
+                                    {{ form.coaching_style }}
+                                    {{ form.coaching_style.errors }}  -->
+                                </div>
+                            </div>                            
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    {{ form.pic.label_tag }}
+                                    {{ form.pic }}
+                                    {{ form.pic.errors }} 
+                                </div>
+                            </div>
+                            <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary">Change of Password</h6>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Password1">Old Password</label>
+                                    <input type="password" class="form-control" id="Password1" placeholder="Enter Password">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Password2">New Password</label>
+                                    <input type="password" class="form-control" id="Password2" placeholder="Enter Password">
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="text-right">
+                                    <!-- <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button> -->
+                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- {{form.as_p}}
+                        <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button> -->
+                    </form><br><br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <br><br><br>
+        <h1>Messages</h1><hr>     
+        <ul>
+            {% for my_message in my_messages %}
+            <li>+ {{my_message.message}} - <i>{{my_message.name}} <a href="mailto:{{my_message.email}}">({{my_message.email}})</a></i></li>
+            {% endfor %}
+        </ul>   
+    </div><br><br><br>
+
+    <div>
+        <h1>Upcoming Matches</h1><hr>
+        {% for match in upcoming_matches %}
+            <p><b>MATCH:</b> {{match.name}}</p>
+            <b class="match-date">DATE: {{match.date}}</b>
+            <b class="match-deadline">{{ match.days_until_match }} DAYS UNTIL MATCH</b>
+            <a class="btn btn-danger" href="{% url 'delete_match' match.id %}">Delete</a>
+            <hr>
+        {% endfor %}
+    </div>
+
+    <div>
+        <br><br><br>
+        <h1>Create Match</h1><hr>
+        <form action="{% url 'account' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="form_id" value="match-form">
+            <div class="row gutters">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">                               
+                    <div class="form-group">
+                        <label for="match">Match</label>
+                        <input type="text" class="form-control" id="match" name="match-name" placeholder="Enter Match" required>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Date">Date</label>
+                        <input type="date" class="form-control" name="match-date" id="Date" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="text-right">
+                        <button type="submit" id="submit" name="submit" class="btn btn-primary">Create Match</button>
+                    </div>
+                </div>
+            </div><br>
+        </form>
+        
+    </div>
+
+    <div>
+        <br><br><br>
+        <h1>Create Player</h1><hr>
+        <form action="{% url 'account' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="form_id" value="player-form">
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mb-2 text-primary">Personal Details</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">                                
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" class="form-control" id="player_fullName" name="player_fullName" placeholder="Enter full name" required>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="eMail">Email</label>
+                        <input type="email" class="form-control" id="eMail" name="player_email" placeholder="Enter email ID" required>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Age">Age</label>
+                        <input type="number" class="form-control" id="Age" name="player_age" placeholder="Enter Age" required>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Bio">Bio</label>
+                        <input type="text" class="form-control" name="player_bio" id="Bio" placeholder="Enter Bio" required>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Wing">Wing</label>
+                        <input type="number" class="form-control" name="player_wing" id="Wing" placeholder="Enter Wing" required>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Height">Height</label>
+                        <input type="number" class="form-control" name="player_height" id="Height" placeholder="Enter Height" step="any" required>
+                    </div>
+                </div>                            
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Speed">Speed</label>
+                        <input type="number" class="form-control" name="player_speed" id="Speed" placeholder="Enter Speed" required>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Pic">Pic</label>
+                        <input type="file" class="form-control" name="player_pic" id="Pic" required>
+                    </div>
+                </div>
+                <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Password2">Password</label>
+                        <input type="password" class="form-control" id="Password2" placeholder="Enter Password">
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Password2">Confirm Password</label>
+                        <input type="password" class="form-control" id="Password2" placeholder="Enter Password">
+                    </div>
+                </div> -->
+            </div>
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="text-right">
+                        <!-- <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button> -->
+                        <button type="submit" id="submit" name="submit" class="btn btn-primary">Create Player</button>
+                    </div>
+                </div>
+            </div><br>
+        </form>
+        
+    </div>
+</div>
+{% endif %}
+
+{% endblock content %}
+
+<!-- 
+    Ogbe can you please stop this your lifestyle
+    please stop  writing codes
+    There's more to life than codes
+    go out , explore the world
+    try different food, meet different women
+    Take some time off
+    Be more than just a lonely young man sitting in front of a keyboard and screen
+    There's a whole world out there
+    I hope you think about this and decide what you want to do with your life
+    "No be who code pass dey make am" - Anonymous 2024
+ -->
